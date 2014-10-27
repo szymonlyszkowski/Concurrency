@@ -18,7 +18,7 @@ public class Resources {
     public static NeuronOne FIRST_NEURON = new NeuronOne(100);
     public static NeuronTwo SECOND_NEURON = new NeuronTwo(100);
     public static NeuronThree THIRD_NEURON = new NeuronThree(100);
-    public static Semaphore SEMAPHORE = new Semaphore(1,true);
+    public static Semaphore SEMAPHORE = new Semaphore(1,false);
 
     public static void printNeurons()
     {

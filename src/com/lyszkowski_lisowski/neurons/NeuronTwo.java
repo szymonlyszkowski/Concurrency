@@ -6,59 +6,51 @@ import com.lyszkowski_lisowski.recursiveNetwork.Resources;
 /**
  * Created by szymonidas on 26.10.14.
  */
-public class NeuronTwo extends Thread implements ActivationFunction{
+public class NeuronTwo extends Thread implements ActivationFunction {
 
-    private int neuronCounter;
+  private int neuronCounter;
 
-    public NeuronTwo(int counterValue) {
+  public NeuronTwo(int counterValue) {
 
-        neuronCounter = counterValue;
-    }
+    neuronCounter = counterValue;
+  }
 
-    @Override
-    public int activate() {
+  @Override
+  public int activate() {
+    int result = neuronCounter-5;
+    return result;
+  }
 
-
-            try {
-                Thread.sleep(1000);
-                System.out.println("Slept for 5 sec !");
-                neuronCounter= (neuronCounter-5);
-
-            } catch (InterruptedException e) {
-                System.out.println("Interrupted Exception caught hen Thread sleep counter unmodified");
-            }
-        return neuronCounter;
-    }
-
-    @Override
-    public int getCounter() {
-        return this.neuronCounter;
-    }
+  @Override
+  public int getCounter() {
+    return this.neuronCounter;
+  }
 
 
-    @Override
-    public void setCounter(int value) {
-        neuronCounter = value;
-    }
+  @Override
+  public void setCounter(int value) {
+    neuronCounter = value;
+  }
 
-    @Override
-    public void run() {
+  @Override
+  public void run() {
 
-        while (Resources.SECOND_NEURON.getCounter() >= 0) {
-            try {
-                Resources.SEMAPHORE.acquire();
-                System.out.println("Semaphore acquired for neuron 2");
-                int output = this.activate();
-                Resources.FIRST_NEURON.setCounter(output);
-                Resources.THIRD_NEURON.setCounter(output);
-                Resources.printNeurons();
-                Resources.SEMAPHORE.release();
-                System.out.println("Semaphore released from neuron 2");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    while (Resources.SECOND_NEURON.getCounter() > 0) {
+      try {
+        Resources.SEMAPHORE.acquire();
+        System.out.println("Semaphore acquired for neuron 2");
+        int output = this.activate();
+        Resources.FIRST_NEURON.setCounter(output);
+        Resources.THIRD_NEURON.setCounter(output);
+        Resources.printNeurons();
+        Resources.SEMAPHORE.release();
+        System.out.println("Semaphore released from neuron 2");
 
-        }
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
 
     }
+
+  }
 }
