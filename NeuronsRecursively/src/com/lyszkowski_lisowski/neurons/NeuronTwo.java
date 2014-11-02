@@ -29,14 +29,14 @@ public class NeuronTwo extends Thread implements ActivationFunction {
 
     public void runLinear() {
         if(logger.isDebugEnabled()){
-            logger.debug("Semaphore acquired for neuron 2");
+            logger.debug("Processing neuron 2 started");
         }
         int output = this.activate();
         Resources.FIRST_NEURON.setNeuronCounter(output);
         Resources.THIRD_NEURON.setNeuronCounter(output);
         if(logger.isDebugEnabled()){
             Resources.printNeurons();
-            logger.debug("Semaphore released from neuron 2");
+            logger.debug("Processing neuron 2 finished");
         }
         this.steps++;
     }
