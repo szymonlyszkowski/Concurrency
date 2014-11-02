@@ -1,24 +1,27 @@
 package com.lyszkowski_lisowski.neurons;
 
+import com.lyszkowski_lisowski.Utils.Semaphore;
 import com.lyszkowski_lisowski.interfaces.ActivationFunction;
-import com.lyszkowski_lisowski.recursiveNetwork.Resources;
+import com.lyszkowski_lisowski.resources.Resources;
 import org.apache.log4j.Logger;
 
 /**
  * @author <a href="mailto:171133@edu.p.lodz.pl">Szymon Łyszkowski</a>
  * @author <a href="mailto:171131@edu.p.lodz.pl">Andrzej Lisowski</a>
  */
-public class NeuronTwo extends Thread implements ActivationFunction {
+public class NeuronTwo implements Runnable,ActivationFunction {
 
     private int steps = 0;
     private int neuronCounter;
     private final int maxSteps;
+    private Resources resources;
 
     private static final Logger logger = Logger.getLogger(NeuronTwo.class);
 
-    public NeuronTwo (int neuronCounter, int maxSteps) {
+    public NeuronTwo (int neuronCounter, int maxSteps, Resources resources) {
         this.neuronCounter = neuronCounter;
         this.maxSteps = maxSteps;
+        this.resources = resources;
     }
 
     @Override
@@ -32,10 +35,10 @@ public class NeuronTwo extends Thread implements ActivationFunction {
             logger.debug("Processing neuron 2 started");
         }
         int output = this.activate();
-        Resources.FIRST_NEURON.setNeuronCounter(output);
-        Resources.THIRD_NEURON.setNeuronCounter(output);
+        resources.getFirstNeuron().setNeuronCounter(output);
+        resources.getThirdNeuron().setNeuronCounter(output);
         if(logger.isDebugEnabled()){
-            Resources.printNeurons();
+            resources.printNeurons();
             logger.debug("Processing neuron 2 finished");
         }
         this.steps++;
@@ -45,17 +48,17 @@ public class NeuronTwo extends Thread implements ActivationFunction {
     public void run() {
         while (this.maxSteps > this.steps) {
             try {
-                Resources.SEMAPHORE.acquire();
+                Semaphore.SEMAPHORE.acquire();
                 if(logger.isDebugEnabled()){
                     logger.debug("Semaphore acquired for neuron 2");
                 }
                 int output = this.activate();
-                Resources.FIRST_NEURON.setNeuronCounter(output);
-                Resources.THIRD_NEURON.setNeuronCounter(output);
+                resources.getFirstNeuron().setNeuronCounter(output);
+                resources.getThirdNeuron().setNeuronCounter(output);
                 if(logger.isDebugEnabled()) {
-                    Resources.printNeurons();
+                    resources.printNeurons();
                 }
-                Resources.SEMAPHORE.release();
+                Semaphore.SEMAPHORE.release();
                 if(logger.isDebugEnabled()){
                     logger.debug("Semaphore released from neuron 2");
                 }

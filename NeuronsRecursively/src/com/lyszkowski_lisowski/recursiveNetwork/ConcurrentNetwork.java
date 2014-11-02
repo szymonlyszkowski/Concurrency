@@ -8,31 +8,38 @@ import com.lyszkowski_lisowski.resources.Resources;
  */
 public class ConcurrentNetwork {
 
-    private Thread thread1 = new Thread(Resources.FIRST_NEURON);
-    private Thread thread2 = new Thread(Resources.SECOND_NEURON);
-    private Thread thread3 = new Thread(Resources.THIRD_NEURON);
+    private Thread neuronOne;
+    private Thread neuronTwo;
+    private Thread neuronThree;
+
+    public ConcurrentNetwork(Resources resources) {
+        this.neuronOne = new Thread(resources.getFirstNeuron());
+        this.neuronTwo = new Thread(resources.getSecondNeuron());
+        this.neuronThree = new Thread(resources.getThirdNeuron());
+    }
 
     /**
      * Method realizes recursive neural network in 3 distinct threads.
+     *
      * @param steps
      */
-    public void startLearing(int steps) {
-        thread1.start();
-        thread2.start();
-        thread3.start();
+    public void startLearning(int steps) {
+
+        neuronOne.start();
+        neuronTwo.start();
+        neuronThree.start();
+
     }
 
-    // gettery & settery
-
-    public Thread getThread1() {
-        return thread1;
+    public Thread getNeuronThree() {
+        return neuronThree;
     }
 
-    public Thread getThread2() {
-        return thread2;
+    public Thread getNeuronTwo() {
+        return neuronTwo;
     }
 
-    public Thread getThread3() {
-        return thread3;
+    public Thread getNeuronOne() {
+        return neuronOne;
     }
 }
