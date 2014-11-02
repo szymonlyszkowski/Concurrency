@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
  * @author <a href="mailto:171133@edu.p.lodz.pl">Szymon Łyszkowski</a>
  * @author <a href="mailto:171131@edu.p.lodz.pl">Andrzej Lisowski</a>
  */
-public class NeuronTwo implements Runnable, ActivationFunction {
+public class NeuronTwo implements Runnable,ActivationFunction {
 
     private int steps = 0;
     private int neuronCounter;
