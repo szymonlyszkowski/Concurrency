@@ -13,9 +13,9 @@ public class NeuronsRecursively {
 
     public static void main(String[] args) {
 
-//        new RecursiveNetwork().startLearing(NUMBER_OF_STEPS);
+        new RecursiveNetwork().startLearing(NUMBER_OF_STEPS);
 
-        new LinearNetwork().startLearning(NUMBER_OF_STEPS);
+ //       new LinearNetwork().startLearning(NUMBER_OF_STEPS);
 
     }
 }

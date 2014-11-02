@@ -51,7 +51,6 @@ public class NeuronThree extends Thread implements ActivationFunction {
                 Resources.SEMAPHORE.release();
                 System.out.println("Semaphore released from neuron 3");
                 this.steps++;
-
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
