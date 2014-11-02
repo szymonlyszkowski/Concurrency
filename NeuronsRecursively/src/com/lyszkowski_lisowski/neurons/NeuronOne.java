@@ -11,7 +11,7 @@ public class NeuronOne extends Thread implements ActivationFunction {
 
     private int steps = 0;
     private int neuronCounter;
-    private final int maxSteps;
+    private int maxSteps;
 
     public NeuronOne (int neuronCounter, int maxSteps) {
         this.neuronCounter = neuronCounter;

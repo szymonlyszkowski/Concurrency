@@ -22,8 +22,8 @@ public class Resources {
     public static Semaphore SEMAPHORE = new Semaphore(1,false);
 
     public static void printNeurons() {
-        System.out.println("Value of the first neuron = " + FIRST_NEURON.getNeuronCounter());
-        System.out.println("Value of the second neuron = " + SECOND_NEURON.getNeuronCounter());
-        System.out.println("Value of the third neuron = " + THIRD_NEURON.getNeuronCounter());
+//        System.out.println("Value of the first neuron = " + FIRST_NEURON.getNeuronCounter());
+//        System.out.println("Value of the second neuron = " + SECOND_NEURON.getNeuronCounter());
+//        System.out.println("Value of the third neuron = " + THIRD_NEURON.getNeuronCounter());
     }
 }
