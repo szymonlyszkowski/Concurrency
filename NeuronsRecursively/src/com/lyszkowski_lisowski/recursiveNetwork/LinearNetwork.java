@@ -8,18 +8,20 @@ import com.lyszkowski_lisowski.resources.Resources;
 public class LinearNetwork implements Runnable {
 
     private int steps;
+    private Resources resources;
 
-    public LinearNetwork(int steps) {
+    public LinearNetwork(int steps, Resources resources) {
         this.steps = steps;
+        this.resources = resources;
     }
 
 
     public void startLearning() {
 
         for (int i = 0; i < this.steps; i++) {
-            Resources.FIRST_NEURON.runLinear();
-            Resources.SECOND_NEURON.runLinear();
-            Resources.THIRD_NEURON.runLinear();
+            this.resources.getFirstNeuron().runLinear();
+            this.resources.getSecondNeuron().runLinear();
+            this.resources.getThirdNeuron().runLinear();
         }
 
     }

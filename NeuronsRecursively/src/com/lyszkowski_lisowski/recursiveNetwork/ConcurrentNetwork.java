@@ -12,10 +12,10 @@ public class ConcurrentNetwork {
     private Thread neuronTwo;
     private Thread neuronThree;
 
-    public ConcurrentNetwork() {
-        this.neuronOne = new Thread(Resources.FIRST_NEURON);
-        this.neuronTwo = new Thread(Resources.SECOND_NEURON);
-        this.neuronThree = new Thread(Resources.THIRD_NEURON);
+    public ConcurrentNetwork(Resources resources) {
+        this.neuronOne = new Thread(resources.getFirstNeuron());
+        this.neuronTwo = new Thread(resources.getSecondNeuron());
+        this.neuronThree = new Thread(resources.getThirdNeuron());
     }
 
     /**
@@ -42,5 +42,4 @@ public class ConcurrentNetwork {
     public Thread getNeuronOne() {
         return neuronOne;
     }
-
 }
