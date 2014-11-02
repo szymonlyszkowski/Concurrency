@@ -4,6 +4,7 @@ import com.lyszkowski_lisowski.NeuronsRecursively;
 import com.lyszkowski_lisowski.neurons.NeuronOne;
 import com.lyszkowski_lisowski.neurons.NeuronThree;
 import com.lyszkowski_lisowski.neurons.NeuronTwo;
+import org.apache.log4j.Logger;
 
 import java.util.concurrent.Semaphore;
 
@@ -21,9 +22,11 @@ public class Resources {
 
     public static Semaphore SEMAPHORE = new Semaphore(1,false);
 
+    private static final Logger logger = Logger.getLogger(Resources.class);
+
     public static void printNeurons() {
-//        System.out.println("Value of the first neuron = " + FIRST_NEURON.getNeuronCounter());
-//        System.out.println("Value of the second neuron = " + SECOND_NEURON.getNeuronCounter());
-//        System.out.println("Value of the third neuron = " + THIRD_NEURON.getNeuronCounter());
+        logger.debug("Value of the first neuron = " + FIRST_NEURON.getNeuronCounter());
+        logger.debug("Value of the second neuron = " + SECOND_NEURON.getNeuronCounter());
+        logger.debug("Value of the third neuron = " + THIRD_NEURON.getNeuronCounter());
     }
 }

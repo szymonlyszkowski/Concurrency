@@ -2,6 +2,7 @@ package com.lyszkowski_lisowski;
 
 import com.lyszkowski_lisowski.recursiveNetwork.RecursiveNetwork;
 import com.lyszkowski_lisowski.recursiveNetwork.Resources;
+import com.sun.media.jfxmedia.logging.Logger;
 
 /**
  * @author <a href="mailto:171133@edu.p.lodz.pl">Szymon Łyszkowski</a>

@@ -2,6 +2,7 @@ package com.lyszkowski_lisowski.neurons;
 
 import com.lyszkowski_lisowski.interfaces.ActivationFunction;
 import com.lyszkowski_lisowski.recursiveNetwork.Resources;
+import org.apache.log4j.Logger;
 
 /**
  * @author <a href="mailto:171133@edu.p.lodz.pl">Szymon Łyszkowski</a>
@@ -12,6 +13,8 @@ public class NeuronTwo extends Thread implements ActivationFunction {
     private int steps = 0;
     private int neuronCounter;
     private final int maxSteps;
+
+    private static final Logger logger = Logger.getLogger(NeuronTwo.class);
 
     public NeuronTwo (int neuronCounter, int maxSteps) {
         this.neuronCounter = neuronCounter;
@@ -25,12 +28,16 @@ public class NeuronTwo extends Thread implements ActivationFunction {
     }
 
     public void runLinear() {
-        System.out.println("Semaphore acquired for neuron 2");
+        if(logger.isDebugEnabled()){
+            logger.debug("Semaphore acquired for neuron 2");
+        }
         int output = this.activate();
         Resources.FIRST_NEURON.setNeuronCounter(output);
         Resources.THIRD_NEURON.setNeuronCounter(output);
-        Resources.printNeurons();
-        System.out.println("Semaphore released from neuron 2");
+        if(logger.isDebugEnabled()){
+            Resources.printNeurons();
+            logger.debug("Semaphore released from neuron 2");
+        }
         this.steps++;
     }
 
@@ -39,16 +46,22 @@ public class NeuronTwo extends Thread implements ActivationFunction {
         while (this.maxSteps > this.steps) {
             try {
                 Resources.SEMAPHORE.acquire();
-                System.out.println("Semaphore acquired for neuron 2");
+                if(logger.isDebugEnabled()){
+                    logger.debug("Semaphore acquired for neuron 2");
+                }
                 int output = this.activate();
                 Resources.FIRST_NEURON.setNeuronCounter(output);
                 Resources.THIRD_NEURON.setNeuronCounter(output);
-                Resources.printNeurons();
+                if(logger.isDebugEnabled()) {
+                    Resources.printNeurons();
+                }
                 Resources.SEMAPHORE.release();
-                System.out.println("Semaphore released from neuron 2");
+                if(logger.isDebugEnabled()){
+                    logger.debug("Semaphore released from neuron 2");
+                }
                 this.steps++;
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error("An error has occurred: ", e);
             }
         }
     }
