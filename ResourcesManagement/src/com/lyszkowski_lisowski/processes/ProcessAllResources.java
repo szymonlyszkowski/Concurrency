@@ -8,7 +8,7 @@ import java.util.Iterator;
 /**
  * Created by szymonidas on 01.11.14.
  */
-public class ProcessAllResources implements Accessibility, Runnable {
+public class ProcessAllResources implements Accessibility,Runnable {
 
     private int processId;
     private Resources resources;

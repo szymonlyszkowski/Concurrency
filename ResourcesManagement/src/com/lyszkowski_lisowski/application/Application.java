@@ -17,7 +17,7 @@ public class Application {
     public static void main(String... args) {
 
         Resources resources = new Resources(RESOURCES_AMOUNT);
-        //resources.getResources().notifyAll();
+//        resources.getResources().notifyAll();
 
         for (int i = 0; i < PROCESSES_AMOUNT_ALL; i++) {
 

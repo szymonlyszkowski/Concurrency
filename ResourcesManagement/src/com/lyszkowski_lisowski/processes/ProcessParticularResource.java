@@ -6,7 +6,7 @@ import com.lyszkowski_lisowski.resources.Resources;
 /**
  * Created by szymonidas on 01.11.14.
  */
-public class ProcessParticularResource implements Accessibility, Runnable {
+public class ProcessParticularResource implements Accessibility,Runnable {
 
     private int resourceId;
     private Resources resources;

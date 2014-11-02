@@ -1,6 +1,6 @@
 package com.lyszkowski_lisowski.resources;
 
-import java.util.Collections;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -9,29 +9,27 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Resources {
 
     private int resourcesAmount;
-    private LinkedBlockingQueue<Resource> resources;
+    private ConcurrentHashMap<Integer, Resource> resources;
 
     public Resources(int resourcesAmount) {
         this.resourcesAmount = resourcesAmount;
-        this.resources = new LinkedBlockingQueue(resourcesAmount);
+        this.resources = new ConcurrentHashMap(resourcesAmount);
 
         createResources(this.resources);
     }
 
 
-    private void createResources(LinkedBlockingQueue<Resource> fifo) {
+    private void createResources(ConcurrentHashMap<Integer, Resource> resources) {
 
         int id = 0;
 
         while (id < getResourcesAmount()) {
-            if (fifo.offer(new Resource(id))) {
-                System.out.println("Resource added with id: " + id);
-
-            }
+            resources.put(id, new Resource(id));
+            System.out.println("Resource added with id: " + id);
             ++id;
         }
-        synchronized (fifo) {
-            fifo.notifyAll();
+        synchronized (resources) {
+            resources.notifyAll();
 
         }
     }

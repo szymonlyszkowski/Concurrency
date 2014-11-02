@@ -9,11 +9,11 @@ import com.lyszkowski_lisowski.recursiveNetwork.LinearNetwork;
  */
 public class NeuronsRecursively {
 
-    public static final int NUMBER_OF_STEPS = 1000;
+    public static final int NUMBER_OF_STEPS = 1000000000;
 
     public static void main(String[] args) {
 
-        long concStartTime = System.currentTimeMillis();
+        long concurrentStartTime = System.currentTimeMillis();
         ConcurrentNetwork concurrentNetwork = new ConcurrentNetwork();
         concurrentNetwork.startLearning(NUMBER_OF_STEPS);
 
@@ -21,8 +21,8 @@ public class NeuronsRecursively {
 
         }
 
-        long concFinishTime = System.currentTimeMillis() - concStartTime;
-        System.out.println("Time for concurrent processing: " + concFinishTime + "[ms]");
+        long concurrentFinishTime = System.currentTimeMillis() - concurrentStartTime;
+        System.out.println("Time for concurrent processing: " + concurrentFinishTime + "[ms]");
 
         long linearStartTime = System.currentTimeMillis();
         Thread linearThread = new Thread(new LinearNetwork(NUMBER_OF_STEPS));
