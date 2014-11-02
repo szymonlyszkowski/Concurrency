@@ -10,9 +10,11 @@ import java.util.Iterator;
  */
 public class ProcessAllResources implements Accessibility, Runnable {
 
+    private int processId;
     private Resources resources;
 
-    public ProcessAllResources(Resources resources) {
+    public ProcessAllResources(int processId, Resources resources) {
+        this.processId = processId;
         this.resources = resources;
     }
 
@@ -23,7 +25,7 @@ public class ProcessAllResources implements Accessibility, Runnable {
 
     @Override
     public void actionOnResource() {
-        System.out.println("Action done using arbitrary resource ! ");
+        System.out.println("Action done by process " + getProcessId() + " using arbitrary resource ! ");
     }
 
     @Override
@@ -31,20 +33,31 @@ public class ProcessAllResources implements Accessibility, Runnable {
 
         synchronized (resources.getResources()) {
 
-            Iterator<Resource> resourcesIterator = this.resources.getResources().iterator();
-            System.out.println("AGOT ITERATOR ALL RESC" + resources.getResourcesAmount());
-            while (resourcesIterator.hasNext()) {
+
+            System.out.println("PEEK QUEUE" + resources.getResources().peek().getResourceId());
+
+            while (resources.getResources().peek()!=null) {
+
                 try {
-                    resources.getResources().wait();
-
-                    System.out.println("Resource gained" + resourcesIterator.next().getResourceId());
-                    actionOnResource();
                     resources.getResources().notifyAll();
+                    Resource resource = resources.getResources().take();
+                    System.out.println("Resource gained" + resources.getResources().peek().getResourceId());
+                    actionOnResource();
 
-
+                    resources.getResources().put(resource);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                try {
+                    resources.getResources().wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//
+//
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 
             }
 
@@ -62,4 +75,10 @@ public class ProcessAllResources implements Accessibility, Runnable {
         }
 
     }
+
+    public int getProcessId() {
+        return this.processId;
+    }
+
+
 }

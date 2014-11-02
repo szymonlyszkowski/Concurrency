@@ -21,13 +21,13 @@ public class Application {
 
         for (int i = 0; i < PROCESSES_AMOUNT_ALL; i++) {
 
-           // new Thread(new ProcessAllResources(resources)).start();
+            new Thread(new ProcessAllResources(i, resources)).start();
 
         }
 
         for (int i = 0; i < PROCESSES_AMOUNT_PARTICULAR; i++) {
 
-            new Thread(new ProcessParticularResource(i,resources)).start();
+            new Thread(new ProcessParticularResource(i,resources,i)).start();
         }
 
 
