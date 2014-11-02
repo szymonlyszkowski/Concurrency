@@ -1,4 +1,5 @@
 package com.lyszkowski_lisowski.recursiveNetwork;
+import com.lyszkowski_lisowski.resources.Resources;
 
 /**
  * @author <a href="mailto:171133@edu.p.lodz.pl">Szymon Łyszkowski</a>

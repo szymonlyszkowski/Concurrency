@@ -1,8 +1,7 @@
 package com.lyszkowski_lisowski;
 
+import com.lyszkowski_lisowski.recursiveNetwork.ConcurrentNetwork;
 import com.lyszkowski_lisowski.recursiveNetwork.LinearNetwork;
-import com.lyszkowski_lisowski.recursiveNetwork.RecursiveNetwork;
-import com.lyszkowski_lisowski.recursiveNetwork.Resources;
 
 /**
  * @author <a href="mailto:171133@edu.p.lodz.pl">Szymon Łyszkowski</a>
@@ -15,9 +14,10 @@ public class NeuronsRecursively {
     public static void main(String[] args) {
 
         long concStartTime = System.currentTimeMillis();
-        new RecursiveNetwork().startLearing(NUMBER_OF_STEPS);
+        ConcurrentNetwork concurrentNetwork = new ConcurrentNetwork();
+        concurrentNetwork.startLearning(NUMBER_OF_STEPS);
 
-        while (Resources.FIRST_NEURON.isAlive() || Resources.SECOND_NEURON.isAlive() || Resources.THIRD_NEURON.isAlive()) {
+        while (concurrentNetwork.getNeuronOne().isAlive() || concurrentNetwork.getNeuronTwo().isAlive() || concurrentNetwork.getNeuronThree().isAlive()) {
 
         }
 
