@@ -22,12 +22,14 @@ public class NeuronsRecursively {
         }
 
         long concFinishTime = System.currentTimeMillis() - concStartTime;
+        System.out.println("Time for concurrent processing: " + concFinishTime + "[ms]");
 
         long linearStartTime = System.currentTimeMillis();
-        new LinearNetwork().startLearning(NUMBER_OF_STEPS);
+        Thread linearThread = new Thread(new LinearNetwork(NUMBER_OF_STEPS));
+        linearThread.start();
+        while(linearThread.isAlive()){}
         long linearFinishTime = System.currentTimeMillis() - linearStartTime;
 
-        System.out.println("Time for concurrent processing: " + concFinishTime + "[ms]");
         System.out.println("Time for linear processing: " + linearFinishTime + "[ms]");
 
     }
