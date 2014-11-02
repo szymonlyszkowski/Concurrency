@@ -1,8 +1,8 @@
 package com.lyszkowski_lisowski;
 
+import com.lyszkowski_lisowski.recursiveNetwork.LinearNetwork;
 import com.lyszkowski_lisowski.recursiveNetwork.RecursiveNetwork;
 import com.lyszkowski_lisowski.recursiveNetwork.Resources;
-import com.sun.media.jfxmedia.logging.Logger;
 
 /**
  * @author <a href="mailto:171133@edu.p.lodz.pl">Szymon Łyszkowski</a>
@@ -22,13 +22,17 @@ public class NeuronsRecursively {
         }
 
         long concFinishTime = System.currentTimeMillis() - concStartTime;
-
-//        long linearStartTime = System.currentTimeMillis();
-//        new LinearNetwork().startLearning(NUMBER_OF_STEPS);
-//        long linearFinishTime = System.currentTimeMillis() - linearStartTime;
-
         System.out.println("Time for concurrent processing: " + concFinishTime + "[ms]");
-//        System.out.println("Time for linear processing: " + linearFinishTime + "[ms]");
+
+
+        long linearStartTime = System.currentTimeMillis();
+        Thread linearThread = new Thread(new LinearNetwork(NUMBER_OF_STEPS));
+        linearThread.start();
+        while(linearThread.isAlive()){}
+        long linearFinishTime = System.currentTimeMillis() - linearStartTime;
+
+
+        System.out.println("Time for linear processing: " + linearFinishTime + "[ms]");
 
     }
 }

@@ -4,11 +4,18 @@ package com.lyszkowski_lisowski.recursiveNetwork;
  * @author <a href="mailto:171133@edu.p.lodz.pl">Szymon Łyszkowski</a>
  * @author <a href="mailto:171131@edu.p.lodz.pl">Andrzej Lisowski</a>
  */
-public class LinearNetwork {
+public class LinearNetwork implements Runnable {
 
-    public void startLearning(int steps) {
+    private int steps;
 
-        for (int i = 0; i < steps; i++) {
+    public LinearNetwork(int steps) {
+        this.steps = steps;
+    }
+
+
+    public void startLearning() {
+
+        for (int i = 0; i < this.steps; i++) {
             Resources.FIRST_NEURON.runLinear();
             Resources.SECOND_NEURON.runLinear();
             Resources.THIRD_NEURON.runLinear();
@@ -16,4 +23,8 @@ public class LinearNetwork {
 
     }
 
+    @Override
+    public void run() {
+        startLearning();
+    }
 }

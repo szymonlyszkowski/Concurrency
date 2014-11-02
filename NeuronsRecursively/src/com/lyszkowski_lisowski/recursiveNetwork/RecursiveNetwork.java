@@ -10,9 +10,9 @@ public class RecursiveNetwork {
 
     public void startLearing(int steps) {
 
-        Resources.FIRST_NEURON.start();
-        Resources.SECOND_NEURON.start();
-        Resources.THIRD_NEURON.start();
+        new Thread(Resources.FIRST_NEURON).start();
+        new Thread(Resources.SECOND_NEURON).start();
+        new Thread(Resources.THIRD_NEURON).start();
 
     }
 
