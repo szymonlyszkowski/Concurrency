@@ -3,12 +3,12 @@ package com.lyszkowski_lisowski.processes;
 import com.lyszkowski_lisowski.resources.Resource;
 import com.lyszkowski_lisowski.resources.Resources;
 
-import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Created by szymonidas on 01.11.14.
  */
-public class ProcessAllResources implements Accessibility,Runnable {
+public class ProcessAllResources implements Accessibility, Runnable {
 
     private int processId;
     private Resources resources;
@@ -25,7 +25,7 @@ public class ProcessAllResources implements Accessibility,Runnable {
 
     @Override
     public void actionOnResource() {
-        System.out.println("Action done by process " + getProcessId() + " using arbitrary resource ! ");
+        System.out.println("Action done by process " + " " + getProcessId() + " " + " using arbitrary resource ! ");
     }
 
     @Override
@@ -33,31 +33,17 @@ public class ProcessAllResources implements Accessibility,Runnable {
 
         synchronized (resources.getResources()) {
 
-
-            System.out.println("PEEK QUEUE" + resources.getResources().peek().getResourceId());
-
-            while (resources.getResources().peek()!=null) {
+            while (true) {
 
                 try {
-                    resources.getResources().notifyAll();
-                    Resource resource = resources.getResources().take();
-                    System.out.println("Resource gained" + resources.getResources().peek().getResourceId());
+                    Resource resource = resources.getResources().get(new Random().nextInt(10));
+                    System.out.println("Resource gained " + resource.getResourceId());
                     actionOnResource();
-
-                    resources.getResources().put(resource);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                try {
+                    resources.incrementProcessesHandled();
                     resources.getResources().wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-//
-//
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
 
             }
 

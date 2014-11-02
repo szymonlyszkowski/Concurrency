@@ -6,7 +6,7 @@ import com.lyszkowski_lisowski.resources.Resources;
 /**
  * Created by szymonidas on 01.11.14.
  */
-public class ProcessParticularResource implements Accessibility,Runnable {
+public class ProcessParticularResource implements Accessibility, Runnable {
 
     private int resourceId;
     private Resources resources;
@@ -27,7 +27,7 @@ public class ProcessParticularResource implements Accessibility,Runnable {
 
     @Override
     public void actionOnResource() {
-        System.out.println("Action done by process" + getProcessId() + "using resource: " + getResourceId() + " ! ");
+        System.out.println("Action done by process " + getProcessId() + " using resource: " + getResourceId() + " ! ");
     }
 
     @Override
@@ -35,50 +35,19 @@ public class ProcessParticularResource implements Accessibility,Runnable {
 
         synchronized (resources.getResources()) {
 
-            System.out.println("PEEK QUEUE" + resources.getResources().peek().getResourceId());
-//            try {
-            while (resources.getResources().peek() != null) {
-
-                // try {
-
-                //resources.getResources().wait();
-
-                Resource resource = resources.getResources().poll();
-                System.out.println("Resource gained" + resources.getResources().peek().getResourceId());
-//                    actionOnResource();
-
-//                        Resource resource = resources.getResources().peek();
-//                        System.out.println("Resource gained" + resource.getResourceId());
+            while (true) {
 
                 try {
-                    if (resource.getResourceId() == getResourceId()) {
-                        resources.getResources().notifyAll();
-                        actionOnResource();
-
-                        resources.getResources().put(resource);
-
-
-                    } else {
-                        resources.getResources().put(resource);
-                        resources.getResources().notifyAll();
-                    }
+                    Resource resource = resources.getResources().get(this.getResourceId());
+                    System.out.println("Resource gained " + resource.getResourceId());
+                    actionOnResource();
+                    resources.incrementProcessesHandled();
                     resources.getResources().wait();
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-//
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-
             }
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
         }
-
-
     }
 
     public int getResourceId() {
@@ -97,10 +66,6 @@ public class ProcessParticularResource implements Accessibility,Runnable {
 
     public int getProcessId() {
         return processId;
-    }
-
-    public void setProcessId(int processId) {
-        this.processId = processId;
     }
 }
 
