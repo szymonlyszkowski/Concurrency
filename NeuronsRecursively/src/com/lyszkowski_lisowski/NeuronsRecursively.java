@@ -1,5 +1,6 @@
 package com.lyszkowski_lisowski;
 
+import com.lyszkowski_lisowski.recursiveNetwork.LinearNetwork;
 import com.lyszkowski_lisowski.recursiveNetwork.RecursiveNetwork;
 
 /**
@@ -8,9 +9,13 @@ import com.lyszkowski_lisowski.recursiveNetwork.RecursiveNetwork;
  */
 public class NeuronsRecursively {
 
+    public static final int NUMBER_OF_STEPS = 100;
+
     public static void main(String[] args) {
 
-        new RecursiveNetwork().startLearing();
+//        new RecursiveNetwork().startLearing(NUMBER_OF_STEPS);
+
+        new LinearNetwork().startLearning(NUMBER_OF_STEPS);
 
     }
 }

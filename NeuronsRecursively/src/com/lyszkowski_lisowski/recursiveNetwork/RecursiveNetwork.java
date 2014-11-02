@@ -6,10 +6,12 @@ package com.lyszkowski_lisowski.recursiveNetwork;
  */
 public class RecursiveNetwork {
 
-    public void startLearing() {
+    public void startLearing(int steps) {
+
        Resources.FIRST_NEURON.start();
        Resources.SECOND_NEURON.start();
        Resources.THIRD_NEURON.start();
+
     }
 
 }

@@ -9,10 +9,13 @@ import com.lyszkowski_lisowski.recursiveNetwork.Resources;
  */
 public class NeuronOne extends Thread implements ActivationFunction {
 
+    private int steps = 0;
     private int neuronCounter;
+    private final int maxSteps;
 
-    public NeuronOne(int counterValue) {
-        neuronCounter = counterValue;
+    public NeuronOne (int neuronCounter, int maxSteps) {
+        this.neuronCounter = neuronCounter;
+        this.maxSteps = maxSteps;
     }
 
     @Override
@@ -21,31 +24,42 @@ public class NeuronOne extends Thread implements ActivationFunction {
         return result;
     }
 
+    public void runLinear() {
+        System.out.println("Semaphore acquired for neuron 1");
+        int output = this.activate();
+        Resources.SECOND_NEURON.setNeuronCounter(output);
+        Resources.THIRD_NEURON.setNeuronCounter(output);
+        Resources.printNeurons();
+        System.out.println("Semaphore released from neuron 1");
+        this.steps++;
+    }
+
     @Override
     public void run() {
-        while (Resources.FIRST_NEURON.getCounter() > 0) {
+        while (this.maxSteps > this.steps) {
             try {
                 Resources.SEMAPHORE.acquire();
                 System.out.println("Semaphore acquired for neuron 1");
                 int output = this.activate();
-                Resources.SECOND_NEURON.setCounter(output);
-                Resources.THIRD_NEURON.setCounter(output);
+                Resources.SECOND_NEURON.setNeuronCounter(output);
+                Resources.THIRD_NEURON.setNeuronCounter(output);
                 Resources.printNeurons();
                 Resources.SEMAPHORE.release();
                 System.out.println("Semaphore released from neuron 1");
+                this.steps++;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    // getters & setters
-    public int getCounter() {
-        return this.neuronCounter;
+    //gettery & settery
+
+    public int getNeuronCounter() {
+        return neuronCounter;
     }
 
-    public void setCounter(int value) {
-        neuronCounter = value;
+    public void setNeuronCounter(int neuronCounter) {
+        this.neuronCounter = neuronCounter;
     }
-
 }
