@@ -20,7 +20,7 @@ public class Resources {
     public static NeuronTwo SECOND_NEURON = new NeuronTwo(100, NeuronsRecursively.NUMBER_OF_STEPS);
     public static NeuronThree THIRD_NEURON = new NeuronThree(100, NeuronsRecursively.NUMBER_OF_STEPS);
 
-    public static Semaphore SEMAPHORE = new Semaphore(1,false);
+    public static Semaphore SEMAPHORE = new Semaphore(0,true);
 
     private static final Logger logger = Logger.getLogger(Resources.class);
 
