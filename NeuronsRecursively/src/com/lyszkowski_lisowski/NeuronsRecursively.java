@@ -17,15 +17,15 @@ public class NeuronsRecursively {
         //concurrent
         Resources resourcesForConcurrent = new Resources();
 
-        long concStartTime = System.currentTimeMillis();
+        long concurrentStartTime = System.currentTimeMillis();
         ConcurrentNetwork concurrentNetwork = new ConcurrentNetwork(resourcesForConcurrent);
         concurrentNetwork.startLearning(NUMBER_OF_STEPS);
 
         while (concurrentNetwork.getNeuronOne().isAlive() || concurrentNetwork.getNeuronTwo().isAlive() || concurrentNetwork.getNeuronThree().isAlive()) {
         }
 
-        long concFinishTime = System.currentTimeMillis() - concStartTime;
-        System.out.println("Time for concurrent processing: " + concFinishTime + "[ms]");
+        long concurrentFinishTime = System.currentTimeMillis() - concurrentStartTime;
+        System.out.println("Time for concurrent processing: " + concurrentFinishTime + "[ms]");
 
 
         //linear
