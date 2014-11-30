@@ -5,9 +5,6 @@ package com.lyszkowski_lisowski.models;
  */
 public class Client implements Runnable {
 
-    public Client(int clientId) {
-        this.clientId = clientId;
-    }
 
     public int getClientId() {
         return clientId;
@@ -15,12 +12,37 @@ public class Client implements Runnable {
 
     private int clientId;
 
+    public Integer getResourceIdDefined() {
+        return resourceIdDefined;
+    }
+
+    public void setResourceIdDefined(Integer resourceIdDefined) {
+        this.resourceIdDefined = resourceIdDefined;
+    }
+
+    private Integer resourceIdDefined;
+
+    public Client(int clientId) {
+        this.clientId = clientId;
+        this.resourceIdDefined = null;
+    }
+
+
+
     public void accessService(Resource resource) {
-        resource.serviceDelivered(this);
+
+        synchronized (resource){
+            resource.serviceDelivered(this);
+            resource.notify();
+        }
+
     }
 
     @Override
     public void run() {
+
+
+
 
     }
 }
