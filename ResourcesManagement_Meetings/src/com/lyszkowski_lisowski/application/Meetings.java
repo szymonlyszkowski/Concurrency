@@ -49,6 +49,6 @@ public class Meetings {
             i++;
         }
 
-       LOGGER.info("operation done: " + operationCounter);
+       LOGGER.info("operations done: " + operationCounter);
     }
 }

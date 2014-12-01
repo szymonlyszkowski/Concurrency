@@ -15,8 +15,17 @@ public class Resource implements Runnable {
     public int getResourceId() {
         return resourceId;
     }
+
     private static final Logger LOGGER = getLogger(Resource.class);
     private int resourceId;
+
+    public LinkedBlockingQueue<Client> getClients() {
+        return clients;
+    }
+
+    /**
+     * FIFO of the resource - gives the access priority to clients
+     */
     private LinkedBlockingQueue<Client> clients;
 
 
@@ -27,19 +36,25 @@ public class Resource implements Runnable {
 
 
     public void serviceDelivered(Client client) {
-        LOGGER.info("Service delivered by: " + resourceId + " invoked by: " + client.getClientId());
+        LOGGER.info("Service delivered by: " + resourceId + " invoked by: " + client.getClientId() + " service defined: " + client.getResourceIdDefined());
     }
 
 
     @Override
     public void run() {
-
-        synchronized (clients) {
+        /**
+         * Synchronized on Resource object.
+         * When Client object is taken from Resource queue,
+         * Resource object(thread) blocked for other Client threads,
+         * service delivered by Resource class is called.
+         */
+        synchronized (this) {
             while (clients.peek() != null) {
                 try {
                     Client client = clients.poll();
-                    clients.wait();
+                    this.wait();
                     client.accessService(this);
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
